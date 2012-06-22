@@ -30,43 +30,51 @@ boolean Game::roundOver(){
 	}
 }
 
-
+// 1 = bomb, 2 = defend, 0 = no move
 void Game::getRoundResult(){
 	int p1mv = p1->getFinalMove()
 		, p2mv = p2->getFinalMove();
 	// P1 & P2 no move
 	if (p1mv == 0 && p2mv == 0){
-		
+		Serial.println("P1 & P2 no move");
 	}
   // P1 no move, P2 defend
 	else if (p1mv == 0 && p2mv == 2 ) {
+		Serial.println("P1 no move, P2 defend");
 	}
 	// P1 no move, P2 bomb
 	else if (p1mv == 0 && p2mv == 1 ) {
 		p1->decHealth();
+		Serial.println("P1 no move, P2 bomb");
 	}
 	// P2 no move, P1 defend
 	else if (p2mv == 0 && p1mv ==  2 ) {
+		Serial.println("P2 no move, P1 defend");
 	}
 	// P2 no move, P1 bomb
-	else if (p1mv == 0 && p2mv == 2 ) {
+	else if (p2mv == 0 && p1mv == 1 ) {
 		p1->decHealth();
+		Serial.println("P2 no move, P1 bomb");
 	}
 	// P1 & P2 bomb
 	else if (p1mv == 1 && p2mv == 1 ) {
 		p1->decHealth();
 		p2->decHealth();
+		Serial.println("P1 & P2 bomb");
 	}
 	// P1 bomb, P2 defend
 	else if (p1mv == 1 && p2mv == 2 ) {
 		p1->decHealth();
+		Serial.println(" P1 bomb, P2 defend");
 	}
 	// P2 bomb, P1 defend
-	else if (p2mv == 1 && p2mv == 2 ) {
+	else if (p2mv == 1 && p1mv == 2 ) {
 		p2->decHealth();
+		Serial.println("P2 bomb, P1 defend");
 	}
 	// P1 & P2 defend
 	else if (p1mv == 2 && p2mv == 2 ) {
+		Serial.println("P1 & P2 defend");
 	}
 	else {
 		Serial.print('P1 Move: ');
@@ -88,8 +96,5 @@ void Game::getRoundResult(){
 	p1->resetMove();
 	p2->resetMove();
 }
-
-/* End Game Class */
-
 
 

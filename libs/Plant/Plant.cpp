@@ -69,7 +69,8 @@ boolean Plant::checkMove() {
 		return true;
   } 
   else if (defend_button_state == HIGH) {     
-    move = true;
+    move = 2;
+	return true;
 	}
   return false;
 }
