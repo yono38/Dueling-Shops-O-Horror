@@ -92,9 +92,13 @@ String Game::getRoundResult(){
 		, p2_health = p2->getHealthStatus();
 	if (p1_health == 0 && p2_health == 0){
 		ready = false;
+		plant1.resetDefends();
+		plant2.resetDefends();
 		return "Tie";
 	}	else if (p1_health == 0 || p2_health == 0){
 		ready = false;
+		plant1.resetDefends();
+		plant2.resetDefends();
 		return "Win";
 	} 
 	return "Continue";

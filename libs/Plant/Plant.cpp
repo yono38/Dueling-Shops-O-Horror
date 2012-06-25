@@ -117,6 +117,11 @@ void Plant::resetInitialLight(){
 	initial_light = 0;
 }
 
+// used at an endgame
+void Plant::resetDefends() {
+	def_remaining = MAX_DEFENDS;
+}
+
 boolean Plant::checkPhoto() {	
 	int curr_light = analogRead(photo_pin);
 	if (initial_light == 0 ){

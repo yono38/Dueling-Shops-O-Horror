@@ -36,6 +36,7 @@ class Plant {
   int getCurrentMove();
   int getFinalMove();
   void resetMove();
+  void resetDefends();
   boolean checkPhoto();
   void resetInitialLight();
 
