@@ -87,4 +87,22 @@ void Speaker::lvlUp() {
   }
 }
 
+void Speaker::error() {
+int melody[] = {
+  NOTE_G3, NOTE_G3};
+
+int noteDurations[] = {
+  4, 8};
+
+  for (int thisNote = 0; thisNote < 2; thisNote++) {
+
+    int noteDuration = 1000/noteDurations[thisNote];
+    tone(speaker_pin, melody[thisNote],noteDuration);
+
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+    noTone(speaker_pin);
+  }
+}
+
 

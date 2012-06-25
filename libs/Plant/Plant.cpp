@@ -3,6 +3,7 @@
 
 // round time
 const int LIGHT_ROUND = 4500;
+const int MAX_DEFENDS = 5;
 
 Plant::Plant(int health_pins[], int bomb_pin, int def_pin, uint8_t pr_pin){
   photo_pin = pr_pin;
@@ -15,6 +16,7 @@ Plant::Plant(int health_pins[], int bomb_pin, int def_pin, uint8_t pr_pin){
    pinMode(health_pins[i], OUTPUT);
   }
   move = 0,
+  def_remaining = MAX_DEFENDS, 
   health_status = 0;
   // photoreceptor stuff
   initial_light = analogRead(photo_pin);
@@ -87,14 +89,22 @@ boolean Plant::checkMove() {
 		return true;
   } 
   else if (defend_button_state == HIGH) {     
-    move = 2;
+    if (def_remaining > 0) move = 2;
+	else move = 0;
 	return true;
 	}
   return false;
 }
 
+int Plant::getCurrentMove() {
+	return move;
+}
+
 // run at end of round to get final move
 int Plant::getFinalMove(){
+	if (move == 2){
+		def_remaining--;
+	}
 	return move;
 }
 
@@ -116,6 +126,7 @@ boolean Plant::checkPhoto() {
 	}	
 	//Serial.println(curr_light);
 	if (curr_light-initial_light > threshold){
+		move = 0;
 		Serial.println("Current light : ");
 		Serial.println(curr_light);	
 		Serial.println("Initial light: ");

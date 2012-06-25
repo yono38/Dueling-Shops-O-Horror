@@ -19,6 +19,7 @@ class Speaker {
 		void tie();
 		void attack();
 		void lvlUp();
+		void error();
 };
 
 #endif

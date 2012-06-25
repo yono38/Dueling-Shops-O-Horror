@@ -14,6 +14,7 @@ class Plant {
  int health_status
  , bomb_button
  , def_button
+ , def_remaining
  , move;
  uint8_t photo_pin;
  boolean was_lit;
@@ -32,6 +33,7 @@ class Plant {
   void setHealth(int val);
   int getHealthStatus();
   boolean checkMove();
+  int getCurrentMove();
   int getFinalMove();
   void resetMove();
   boolean checkPhoto();

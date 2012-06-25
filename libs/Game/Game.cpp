@@ -11,8 +11,6 @@ Game::Game(Plant* P_1, Plant* P_2) {
 	ready = false;
 }
 
-// lets you know if initial light recharge complete,
-// which lets you play button game
 boolean Game::start(){
 	if (!ready && p1->getHealthStatus() == 3 && p2->getHealthStatus() == 3){
 		ready = true;
@@ -20,7 +18,6 @@ boolean Game::start(){
 	return ready;
 }
 
-// when player first presses button, round begins
 int Game::setRound(){
   round_start = millis();
   return round_start;
@@ -30,7 +27,6 @@ int Game::roundTimeRemaining(){
 	return ROUND_LENGTH - (millis()-round_start);
 }
 
-// alerts game to calculate final mores
 boolean Game::roundOver(){
 	if (roundTimeRemaining() <= 0){
 		return true;
@@ -39,7 +35,6 @@ boolean Game::roundOver(){
 	}
 }
 
-// calculates final moves and inc/dec plant health
 // 1 = bomb, 2 = defend, 0 = no move
 String Game::getRoundResult(){
 	int p1mv = p1->getFinalMove()
