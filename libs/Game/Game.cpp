@@ -31,7 +31,7 @@ boolean Game::roundOver(){
 }
 
 // 1 = bomb, 2 = defend, 0 = no move
-void Game::getRoundResult(){
+String Game::getRoundResult(){
 	int p1mv = p1->getFinalMove()
 		, p2mv = p2->getFinalMove();
 	// P1 & P2 no move
@@ -83,15 +83,17 @@ void Game::getRoundResult(){
 		Serial.println(p2mv);
 	}
 	// check for endgame
-  int	p1_health = p1->getHealthStatus()
+  int p1_health = p1->getHealthStatus()
 		, p2_health = p2->getHealthStatus();
 	if (p1_health == 0 && p2_health == 0){
-		// both lose sequence
-	}	else if (p1_health == 0){
-		// p2 win sequence
-	} else if (p2_health == 0) {
+		return "Tie";
+	}	else if (p1_health == 0 || p2_health == 0){
+		return "Win";
+	} 
+	return "Continue";
+	//else if () {
 		// p1 win sequence
-	}
+//	}
 	// new round, reset moves
 	p1->resetMove();
 	p2->resetMove();

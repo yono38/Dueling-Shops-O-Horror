@@ -5,21 +5,29 @@
 
 #include <Plant.h>
 #include <Game.h>
+#include <pitches.h>
+#include <Speaker.h>
 
   // Set Up Plant Hardware Configuration
   int p1_health_pins[] = {6,7,8}
   ,	p1_def_btn = 2
   , p1_bmb_btn = 3;
+  uint8_t p1_pr_pin = A0;
 	
    int	p2_health_pins[] = {9,10,11}
   , p2_def_btn = 5
   , p2_bmb_btn = 4;
+  uint8_t p2_pr_pin = A1;
+  
 
-  Plant plant1(p1_health_pins, p1_bmb_btn, p1_def_btn);
-  Plant plant2(p2_health_pins, p2_bmb_btn, p2_def_btn);
+  Plant plant1(p1_health_pins, p1_bmb_btn, p1_def_btn, p1_pr_pin);
+  Plant plant2(p2_health_pins, p2_bmb_btn, p2_def_btn, p2_pr_pin);
+  
+  unsigned int speaker_pin = 12;
 
   // Set Up Game
   Game my_game(&plant1, &plant2);
+  Speaker sound(speaker_pin);
   boolean round_in_motion;
   boolean ending_alert;
   int round_led = 19;
@@ -37,7 +45,9 @@ void setup(){
 
 void loop(){ 
 	boolean p1_moved = plant1.checkMove()
-	 , p2_moved = plant2.checkMove();	
+	 , p2_moved = plant2.checkMove();
+        plant1.checkPhoto();
+    //  plant2.checkPhoto();	
 	if (p1_moved){
           Serial.println(plant1.getFinalMove());
           // remove this later
@@ -62,15 +72,23 @@ void loop(){
                    ending_alert = false;
                    // debug info
                    Serial.println("Round ended!");
-                   digitalWrite(round_led, LOW);                   
+                   digitalWrite(round_led, LOW);     
+			sound.attack();				   
                    Serial.println(millis());
 		   Serial.println("P1 Move: ");
 		   Serial.println(plant1.getFinalMove());
 		   Serial.println("P2 Move: ");
 		   Serial.println(plant2.getFinalMove());
-                  // actual code that does the work
-                   my_game.getRoundResult();
-
+			  // actual code that does the work
+			 String round_result = my_game.getRoundResult();
+			 if (round_result == "Win"){
+				sound.win(1);
+				return;
+			 }	
+			 else if (round_result == "Tie"){
+				sound.tie();
+				return;
+			 }
 		}
                 else if (ending_alert){
                   alertBlink(); 

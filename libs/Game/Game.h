@@ -17,9 +17,9 @@ class Game {
     Game(Plant* p1, Plant* p2);
     void start();
     int setRound();
-    void getRoundResult();
-		int roundTimeRemaining();
-		boolean roundOver();
+    String getRoundResult();
+	int roundTimeRemaining();
+	boolean roundOver();
 };
 
 #endif
