@@ -53,9 +53,6 @@ void loop()
     if (lvl_up_p1){
     // if (lvl_up_p1 || lvl_up_p2){
       sound.lvlUp();
-	  delay(20);
-	  // hack
-	  plant1.resetInitialLight();
     } 
     if (my_game.start()){
 		boolean p1_moved = plant1.checkMove()
