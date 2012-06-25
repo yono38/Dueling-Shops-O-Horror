@@ -9,26 +9,32 @@
 #include <Speaker.h>
 
   // Set Up Plant Hardware Configuration
+// Player 1 Configuration
 int p1_health_pins[] = { 6, 7, 8 }
 
 , p1_def_btn = 2, p1_bmb_btn = 3;
 uint8_t p1_pr_pin = A0;
 
+// Player 2 Configuration
 int p2_health_pins[] = { 9, 10, 11 }
 
 , p2_def_btn = 5, p2_bmb_btn = 4;
 uint8_t p2_pr_pin = A1;
 
-
+// Create Plants
 Plant plant1(p1_health_pins, p1_bmb_btn, p1_def_btn, p1_pr_pin);
 Plant plant2(p2_health_pins, p2_bmb_btn, p2_def_btn, p2_pr_pin);
 
+// Set up Speaker
 unsigned int speaker_pin = 12;
 
   // Set Up Game
 Game my_game(&plant1, &plant2);
 Speaker sound(speaker_pin);
+
+// used to determine if game round (choosing of move) is in progress
 boolean round_in_motion;
+// used to determine if round almost over
 boolean ending_alert;
 int round_led = 19;
 
@@ -36,11 +42,14 @@ void setup()
 {
     round_in_motion = false;
     ending_alert = false;
+
+// Uncomment this when second photoresistor in use
 //    plant1.setHealth(3);
 //  TODO comment this when sensor used
     plant2.setHealth(3);
+
     Serial.begin(9600);
-    Serial.println("test");
+	// Set Up Round Indicator LED
     pinMode(round_led, OUTPUT);
     digitalWrite(round_led, LOW);
 }
@@ -48,14 +57,15 @@ void setup()
 void loop()
 {
     boolean lvl_up_p1 = plant1.checkPhoto();
+// Uncomment this for other photoresistor
 //  boolean lvl_up_p2 =	plant2.checkPhoto();
-//    Serial.println(lvl_up_p1);
+
+	// Comment this for other photoresistor
     if (lvl_up_p1){
+	// Uncomment this for other photoresistor
     // if (lvl_up_p1 || lvl_up_p2){
       sound.lvlUp();
 	  delay(20);
-	  // hack
-	  plant1.resetInitialLight();
     } 
     if (my_game.start()){
 		boolean p1_moved = plant1.checkMove()
@@ -86,6 +96,7 @@ void loop()
 			Serial.println("Round ended!");
 			digitalWrite(round_led, LOW);
 			sound.attack();
+			// debug info
 			Serial.println(millis());
 			Serial.println("P1 Move: ");
 			Serial.println(plant1.getFinalMove());
@@ -110,6 +121,7 @@ void loop()
 	}
 }
 
+// this makes the round indicator LED blink at the end
 void alertBlink()
 {
     // 1000 off, 900 on, 800 off, 700 on, 600 off
