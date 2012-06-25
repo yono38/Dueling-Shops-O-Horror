@@ -49,7 +49,7 @@ void loop()
 {
     boolean lvl_up_p1 = plant1.checkPhoto();
 //  boolean lvl_up_p2 =	plant2.checkPhoto();
-    Serial.println(lvl_up_p1);
+//    Serial.println(lvl_up_p1);
     if (lvl_up_p1){
     // if (lvl_up_p1 || lvl_up_p2){
       sound.lvlUp();

@@ -91,8 +91,10 @@ String Game::getRoundResult(){
   int p1_health = p1->getHealthStatus()
 		, p2_health = p2->getHealthStatus();
 	if (p1_health == 0 && p2_health == 0){
+		ready = false;
 		return "Tie";
 	}	else if (p1_health == 0 || p2_health == 0){
+		ready = false;
 		return "Win";
 	} 
 	return "Continue";

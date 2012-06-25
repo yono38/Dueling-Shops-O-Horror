@@ -106,12 +106,12 @@ void Plant::resetInitialLight(){
 
 boolean Plant::checkPhoto() {	
 	int curr_light = analogRead(photo_pin);
-	if (initial_light == 0 || curr_light < initial_light){
-		initial_light = curr_light;
+	if (initial_light == 0 ){
+		initial_light = 995;
 		Serial.println("New Initial Light: ");
 		Serial.println(initial_light);
 	}	
-	Serial.println(curr_light);
+	//Serial.println(curr_light);
 	if (curr_light-initial_light > threshold){
 		Serial.println("Current light : ");
 		Serial.println(curr_light);	
