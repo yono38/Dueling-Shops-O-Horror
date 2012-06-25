@@ -12,6 +12,8 @@ Players compete to “water” their assigned venus flytrap bud by directing a l
 ##Mechanics of the “bombing game”
 Each round of the game is initiated when the first player presses their button. The other player will have 5 seconds to respond, but cannot respond while they are watering their plant. The original player can keep watering after pressing the button, but it will nullify their choice and they have to press it again before the end of the round.
 
+Each player is limited to 5 defends.
+
 ###Rules of game:
 * Bomb-Bomb: both players lose 1 health 
 * Bomb-Defend: bombing player loses 1 health

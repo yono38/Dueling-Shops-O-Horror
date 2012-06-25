@@ -24,9 +24,6 @@ Plant::Plant(int health_pins[], int bomb_pin, int def_pin, uint8_t pr_pin){
   curr_lit_time = 0;
   last_read_time = 0;
   light_round_time = 0; 
-  // recharge light stuff
-  recharge_indicator_lit = false;
-  recharge_last_change = 0;
   // how much higher light reading has to be than the initial read  
   threshold = 20;
 };
@@ -104,19 +101,9 @@ void Plant::checkPhoto() {
 	int curr_light = analogRead(photo_pin);
 	if (initial_light == 0){
 		initial_light = curr_light;
-		Serial.println("New Initial Light: ");
-		Serial.println(initial_light);
 	}	
-//	Serial.println(curr_light);
-	if (curr_light-initial_light > threshold){
-		Serial.println("Current light : ");
-		Serial.println(curr_light);	
-		Serial.println("Initial light: ");
-		Serial.println(initial_light);
-		Serial.println("Above by: ");
-		Serial.println(curr_light-initial_light);
-		Serial.println("Threshold: ");
-		Serial.println(threshold);		
+	Serial.println(curr_light);
+	if (curr_light-initial_light >= threshold){
 		curr_lit_time = millis();
 		if (was_lit == true){
 			light_round_time += (curr_lit_time - last_read_time);
@@ -134,23 +121,5 @@ void Plant::checkPhoto() {
 	else {
 		was_lit = false;
 	}
-	// blink when 1 second away from recharging
-	if (health_status < 3 && (LIGHT_ROUND - light_round_time) < 1000) {
-		unsigned int now = millis();
-		// if more than 200ms have passed since last change
-		if ((now - recharge_indicator_lit) > 200) {
-			if (recharge_indicator_lit == false) {
-				// blink on
-				digitalWrite(health[health_status], HIGH);
-				recharge_indicator_lit = true;
-			}
-			else {
-				// blink off
-				digitalWrite(health[health_status], LOW);
-				recharge_indicator_lit = false;			
-			}
-			// set last change to now
-			recharge_last_change = now;
-		}
-	}
+
 }

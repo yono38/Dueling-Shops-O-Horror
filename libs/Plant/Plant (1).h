@@ -17,13 +17,11 @@ class Plant {
  , move;
  uint8_t photo_pin;
  boolean was_lit;
- boolean recharge_indicator_lit;
- unsigned int recharge_last_change;
- int initial_light;
+ unsigned int initial_light;
  unsigned long curr_lit_time;
  unsigned long last_read_time;
  unsigned int light_round_time;
- int threshold;
+ unsigned int threshold;
  public:
   Plant(int health_pins[], int bomb_pin, int def_pin, uint8_t pr_pin); 
   Plant(const Plant& other);
