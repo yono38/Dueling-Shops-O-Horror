@@ -78,6 +78,7 @@ int Plant::getHealthStatus(){
 	return health_status;
 }
 
+// run on a loop to look for button presses
 boolean Plant::checkMove() {
   int bomb_button_state = digitalRead(bomb_button)
   , defend_button_state = digitalRead(def_button);
@@ -92,6 +93,7 @@ boolean Plant::checkMove() {
   return false;
 }
 
+// run at end of round to get final move
 int Plant::getFinalMove(){
 	return move;
 }
@@ -100,6 +102,7 @@ void Plant::resetMove() {
 	move = 0;
 }
 
+// used because of a hack
 void Plant::resetInitialLight(){
 	initial_light = 0;
 }
