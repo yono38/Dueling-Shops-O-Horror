@@ -12,10 +12,11 @@
 class Game {
   Plant* p1;
   Plant* p2;
+  boolean ready;
   unsigned long round_start;
   public:
     Game(Plant* p1, Plant* p2);
-    void start();
+    boolean start();
     int setRound();
     String getRoundResult();
 	int roundTimeRemaining();

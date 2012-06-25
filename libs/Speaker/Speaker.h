@@ -18,6 +18,7 @@ class Speaker {
 		void win(unsigned int player);
 		void tie();
 		void attack();
+		void lvlUp();
 };
 
 #endif

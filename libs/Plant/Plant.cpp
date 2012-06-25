@@ -28,7 +28,7 @@ Plant::Plant(int health_pins[], int bomb_pin, int def_pin, uint8_t pr_pin){
   recharge_indicator_lit = false;
   recharge_last_change = 0;
   // how much higher light reading has to be than the initial read  
-  threshold = 20;
+  threshold = 15;
 };
 
 // doesn't set up output/input pins because that already
@@ -100,14 +100,18 @@ void Plant::resetMove() {
 	move = 0;
 }
 
-void Plant::checkPhoto() {	
+void Plant::resetInitialLight(){
+	initial_light = 0;
+}
+
+boolean Plant::checkPhoto() {	
 	int curr_light = analogRead(photo_pin);
-	if (initial_light == 0){
+	if (initial_light == 0 || curr_light < initial_light){
 		initial_light = curr_light;
 		Serial.println("New Initial Light: ");
 		Serial.println(initial_light);
 	}	
-//	Serial.println(curr_light);
+	Serial.println(curr_light);
 	if (curr_light-initial_light > threshold){
 		Serial.println("Current light : ");
 		Serial.println(curr_light);	
@@ -122,8 +126,10 @@ void Plant::checkPhoto() {
 			light_round_time += (curr_lit_time - last_read_time);
 			last_read_time = curr_lit_time;
 			if (light_round_time > LIGHT_ROUND) {
+				Serial.println("Increasing health!");
 				incHealth();
 				light_round_time = 0;
+				return true;
 			}
 		}
 		else {
@@ -153,4 +159,6 @@ void Plant::checkPhoto() {
 			recharge_last_change = now;
 		}
 	}
+	return false;
+
 }

@@ -65,4 +65,26 @@ void Speaker::attack(){
   }
 }
 
+void Speaker::lvlUp() {
+	Serial.println("level up sound");
+	int melody[] = {
+  NOTE_F4, NOTE_C5 ,0, NOTE_C7};
+
+	int noteDurations[] = {
+	2, 4, 2, 8 };
+
+  for (int thisNote = 0; thisNote < 4; thisNote++) {
+
+    int noteDuration = 1000/noteDurations[thisNote];
+    tone(speaker_pin, melody[thisNote],noteDuration);
+
+    int pauseBetweenNotes = noteDuration * 1.30;
+	// hopefully this delay doesn't screw anything up
+	// TODO change code so no delay needed
+    delay(pauseBetweenNotes);
+    // stop the tone playing:
+    noTone(speaker_pin);
+  }
+}
+
 

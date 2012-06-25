@@ -8,9 +8,14 @@ Game::Game(Plant* P_1, Plant* P_2) {
 	p1 = P_1;
 	p2 = P_2;
 	round_start = 0;
+	ready = false;
 }
 
-void Game::start(){
+boolean Game::start(){
+	if (!ready && p1->getHealthStatus() == 3 && p2->getHealthStatus() == 3){
+		ready = true;
+	}
+	return ready;
 }
 
 int Game::setRound(){

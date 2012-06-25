@@ -34,7 +34,9 @@ class Plant {
   boolean checkMove();
   int getFinalMove();
   void resetMove();
-  void checkPhoto();
+  boolean checkPhoto();
+  void resetInitialLight();
+
 };
 
 #endif
