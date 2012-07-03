@@ -14,13 +14,14 @@ Game::Game(Plant* P_1, Plant* P_2) {
 boolean Game::start(){
 	if (!ready && p1->getHealthStatus() == 3 && p2->getHealthStatus() == 3){
 		ready = true;
+		Serial.println("Game start");
 	}
 	return ready;
 }
 
 int Game::setRound(){
-  round_start = millis();
-  return round_start;
+	round_start = millis();
+	return round_start;
 };
 
 int Game::roundTimeRemaining(){
@@ -38,12 +39,12 @@ boolean Game::roundOver(){
 // 1 = bomb, 2 = defend, 0 = no move
 String Game::getRoundResult(){
 	int p1mv = p1->getFinalMove()
-		, p2mv = p2->getFinalMove();
+	, p2mv = p2->getFinalMove();
 	// P1 & P2 no move
 	if (p1mv == 0 && p2mv == 0){
 		Serial.println("P1 & P2 no move");
 	}
-  // P1 no move, P2 defend
+	// P1 no move, P2 defend
 	else if (p1mv == 0 && p2mv == 2 ) {
 		Serial.println("P1 no move, P2 defend");
 	}
@@ -88,26 +89,25 @@ String Game::getRoundResult(){
 		Serial.println(p2mv);
 	}
 	// check for endgame
-  int p1_health = p1->getHealthStatus()
-		, p2_health = p2->getHealthStatus();
+	int p1_health = p1->getHealthStatus()
+	, p2_health = p2->getHealthStatus();
 	if (p1_health == 0 && p2_health == 0){
 		ready = false;
-		plant1.resetDefends();
-		plant2.resetDefends();
+		p1->resetDefends();
+		p2->resetDefends();
 		return "Tie";
 	}	else if (p1_health == 0 || p2_health == 0){
 		ready = false;
-		plant1.resetDefends();
-		plant2.resetDefends();
+		p1->resetDefends();
+		p2->resetDefends();
 		return "Win";
 	} 
 	return "Continue";
 	//else if () {
-		// p1 win sequence
-//	}
+	// p1 win sequence
+	//	}
 	// new round, reset moves
 	p1->resetMove();
 	p2->resetMove();
 }
-
 

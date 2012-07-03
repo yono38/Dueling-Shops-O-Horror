@@ -14,7 +14,7 @@ int p1_health_pins[] = { 6, 7, 8 }
 , p1_def_btn = 2, p1_bmb_btn = 3;
 uint8_t p1_pr_pin = A0;
 
-int p2_health_pins[] = { 9, 10, 11 }
+int p2_health_pins[] = { 11, 10, 9 }
 
 , p2_def_btn = 5, p2_bmb_btn = 4;
 uint8_t p2_pr_pin = A1;
@@ -38,7 +38,7 @@ void setup()
     ending_alert = false;
 //    plant1.setHealth(3);
 //  TODO comment this when sensor used
-    plant2.setHealth(3);
+//    plant2.setHealth(3);
     Serial.begin(9600);
     Serial.println("test");
     pinMode(round_led, OUTPUT);
@@ -48,10 +48,10 @@ void setup()
 void loop()
 {
     boolean lvl_up_p1 = plant1.checkPhoto();
-//  boolean lvl_up_p2 =	plant2.checkPhoto();
+  boolean lvl_up_p2 =	plant2.checkPhoto();
 //    Serial.println(lvl_up_p1);
-    if (lvl_up_p1){
-    // if (lvl_up_p1 || lvl_up_p2){
+//    if (lvl_up_p1){
+    if (lvl_up_p1 || lvl_up_p2){
       sound.lvlUp();
     } 
     if (my_game.start()){
